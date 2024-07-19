@@ -1,0 +1,1 @@
+{"Num_sample": 1000, "Time_step": 50, "T": 1, "kappa": 1, "Rho": 5, "Total_balance": 10000, "Num_neoron": 50, "Training_time": 823.7678861618042,'max_epoch':15000,'accuracy':0.003%}
