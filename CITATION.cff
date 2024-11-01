@@ -1,8 +1,8 @@
 cff-version: 0.0.0
 message: "If you use this software, please cite it as below."
 authors:
-  - family-names: Fahim
-    given-names: Arash
+  - family-names: Fahim, Rahman
+    given-names: Arash, Arafatur
     orcid: https://orcid.org/1234-5678-9101-1121
 title: "Multi-scale GPM for optimal control"
 version: 0.0.0
