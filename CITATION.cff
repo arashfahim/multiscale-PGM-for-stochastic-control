@@ -8,4 +8,5 @@ authors:
     given-names: "Md Arafatur"
     orcid: "https://orcid.org/0009-0005-7737-9375"
 title: "Multi-scale GPM for optimal control"
-version: 0.0.0
+version: "0.0.0"
+url: "https://github.com/arashfahim/multiscale-PGM-for-stochastic-control"
