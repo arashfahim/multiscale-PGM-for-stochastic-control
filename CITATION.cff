@@ -3,9 +3,9 @@ message: "If you use this software, please cite it as below."
 authors:
   - family-names: "Fahim"
     given-names: "Arash"
-    orcid: https://orcid.org/0000-0001-8028-2471
+    orcid: "https://orcid.org/0000-0001-8028-2471"
 - family-names: "Rahman"
     given-names: "Md Arafatur"
-    orcid: https://orcid.org/0009-0005-7737-9375
+    orcid: "https://orcid.org/0009-0005-7737-9375"
 title: "Multi-scale GPM for optimal control"
 version: 0.0.0
