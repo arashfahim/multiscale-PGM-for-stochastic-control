@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -c \"import sys; print\\(sys.executable\\)\")",
+      "Bash(/opt/anaconda3/bin/python -c \"import nbformat; print\\('nbformat ok'\\)\")",
+      "Bash(/opt/anaconda3/bin/python -c \"import nbclient; print\\('nbclient ok'\\)\")",
+      "Bash(/opt/anaconda3/bin/python -c ' *)"
+    ]
+  }
+}
