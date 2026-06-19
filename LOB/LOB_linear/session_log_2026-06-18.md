@@ -60,8 +60,58 @@ approx_params = {'num_trajectories': 300, 'num_time_steps': 10, 'num_neurons': 1
 approx_params_fine = {'num_trajectories': 200, 'num_neurons': 8, ...}
 ```
 
-## Open items
-- `fine_optimal_execution`: needs proper `gen_data()` and `_fit_value()` rewrite
-- `self.intervals` needs to be changed back from `{oe.N}` to support multiple intervals
-- Issue #7 from review: one `trade_size` network shared across all intervals — may need per-interval networks
-- L-BFGS hybrid (Adam warmup → L-BFGS polish) remains an option if more speed needed
+## MS_PGM_v3.ipynb (Session 2 — 2026-06-18 evening)
+
+### Root cause: coarse_V extrapolation failure
+- Training data (D, R) at each time step has correlation **0.997** — V_NN only learns along a 1D diagonal in (D, R) space
+- At t=0.9, training range: D in [10.41, 13.56], R in [281, 424], but all on a thin band
+- V_NN extrapolates poorly outside this band: at R=528, underestimates true cost by ~5000
+- This caused fine_optimal_execution to learn negative trades (hoarding inventory), exploiting the inaccurate boundary cost
+- Diagnostic plots saved: `coarseV_extrapolation.png`, `coarseV_training_data_t09.png`
+
+### Fix 1: Two-level training in `optimal_execution`
+- **Level 1**: Standard training from correlated trajectory data (unchanged)
+- **Level 2** (new): After Level 1, at each time step find [D_min, D_max] × [R_min, R_max] from trajectories, sample D and R **independently** within rectangle, retrain `trade_size` (warm start, same optimizer) on this rectangle data
+- For V training: `gen_data()` uses **only** rectangle-sampled starting points (not rollout trajectories), so correlation stays ~0 at every time step
+- Cost-to-go for each rectangle point computed via `self.cost()` starting from t_n (not t=0)
+- Result: correlation dropped from 0.997 to ~0 at all time steps; V_NN fits well across full 2D rectangle
+
+### Fix 2: Removed `.detach()` from `coarse_V` in `fine_optimal_execution.cost()`
+- **Old**: `costs[:, step] = self.coarse_V(u).squeeze(1).detach()`
+- **New**: `costs[:, step] = self.coarse_V(u).squeeze(1)`
+- With `.detach()`, gradients from boundary value couldn't flow back to `trade_size` — optimizer had no signal that negative trades increase boundary cost
+- Without `.detach()`, coarse_V's parameters aren't updated (not in foe's optimizer), but chain rule tells `trade_size` how its decisions affect boundary cost
+- This was the critical fix that eliminated negative trades
+
+### Fix 3: Fixed `error_report()` in `fine_optimal_execution`
+- **Old**: compared NN cost-to-go from t_start against `full_cf(R)` (total cost from t=0) — apples-to-oranges
+- **New**: uses `full_cf.value_function(n, D, R)` for exact cost-to-go comparison at matching (t, D, R)
+- Test states now sample D from training range (not D=0)
+
+### Results with different interval configurations
+| Intervals | Rel. L1 error | Notes |
+|-----------|--------------|-------|
+| {10} (v1) | ~1% | Single interval, exact terminal cost |
+| {9, 10} | 5.7% | Best multi-interval result |
+| {8, 10} | 14% | Further from T = harder |
+| {7, 10} | 20% | NN overtrades ~2x in interval 7 |
+| {1, 3, 7, 10} | 24% | 4 non-contiguous intervals, early intervals struggle |
+
+### Bar chart evaluation methodology
+- Must evaluate `foe.trade_size` on the **CF-100 optimal (D, R) trajectory**, not on the NN's own rollout
+- NN rollout diverges from CF after first step, compounding errors and giving misleading comparison
+- Plot shows NN trade recommendation at each CF state, including on intervals the NN wasn't trained on (it generalizes via smooth function of t)
+
+### Code cell changes in v3
+- **Cell 6** (`optimal_execution`): Added Level 2 training block in `train()`, rewrote `gen_data()` to use rectangle-sampled starting points only
+- **Cell 7**: Fresh `oe` creation (no pickle cache)
+- **Cell 8**: Always train (removed `if not oe.trained` guard)
+- **Cell 28** (`fine_optimal_execution`): Removed `.detach()` from `coarse_V` in `cost()`, fixed `error_report()`
+- **Cell 29**: Evaluates NN on CF-100 trajectory, shows all time steps including non-trained intervals
+- **Cell 31**: Three-way comparison (V_NN vs coarse CF vs fine CF) — confirmed discretization error is negligible (0.03%)
+
+## Open items (updated)
+- NN overtrades ~2x on intervals far from T — may need more training epochs or per-interval networks
+- `gen_data()` and `_fit_value()` in `fine_optimal_execution` remain commented out — do not rewrite
+- L-BFGS hybrid remains an option if more speed needed
+- Consider widening the rectangle sampling range beyond the trajectory bounding box
