@@ -1,0 +1,8 @@
+- [MS_PGM v1 changes](project_ms-pgm-v1-changes.md) — D/R init, mini-batch training, fat commented out, fine-scale partially disabled
+- [MS_PGM v2 L-BFGS](project_ms-pgm-v2-lbfgs.md) — Adam vs L-BFGS comparison; Adam won, L-BFGS stuck at 50x worse MSE
+- [No rewrite fine gen_data](feedback_no-rewrite-fine-gen-data.md) — Do not rewrite gen_data()/_fit_value() in fine_optimal_execution
+- [MS_PGM open items](project_ms-pgm-open-items.md) — Intervals, per-interval networks, negative trades insight
+- [coarse_V extrapolation](project_coarseV-extrapolation.md) — V_NN fails outside trajectory manifold (D,R corr=0.997); root cause of multi-interval failure
+- [v3 enrichment + detach fix](project_ms-pgm-v3-enrichment.md) — Two-level training + remove .detach() from coarse_V; error 125%→5.7%
+- [MS_PGM parameters](project_ms-pgm-params.md) — Current lob_params, approx_params, approx_params_fine settings
+- [v3/v4 session 2](project_ms-pgm-v3-v4-session2.md) — cost() fix, bounded_coarse_V (v4), liquidation constraint problem, proposed gap-filling direction
