@@ -5,7 +5,19 @@
       "Bash(python3 -c \"import sys; print\\(sys.executable\\)\")",
       "Bash(/opt/anaconda3/bin/python -c \"import nbformat; print\\('nbformat ok'\\)\")",
       "Bash(/opt/anaconda3/bin/python -c \"import nbclient; print\\('nbclient ok'\\)\")",
-      "Bash(/opt/anaconda3/bin/python -c ' *)"
+      "Bash(/opt/anaconda3/bin/python -c ' *)",
+      "Bash(python3 -c \"import torch; print\\('torch ok'\\)\")",
+      "Bash(python3 -c \"import numpy; print\\('numpy ok'\\)\")",
+      "Read(//Users/arashfahim/**)",
+      "Bash(conda info *)",
+      "Read(//Users/arashfahim/anaconda3/**)",
+      "Read(//Users/arashfahim/miniconda3/**)",
+      "Bash(/opt/anaconda3/bin/python -c \"import torch, matplotlib; print\\('torch', torch.__version__\\); print\\('matplotlib ok'\\)\")",
+      "Bash(sed -i '' 's/^%matplotlib inline/# %matplotlib inline/' /tmp/ms_pgm_v3_run.py)",
+      "Bash(python3)"
+    ],
+    "additionalDirectories": [
+      "/private/tmp"
     ]
   }
 }
