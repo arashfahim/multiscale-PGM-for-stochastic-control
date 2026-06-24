@@ -7,3 +7,4 @@
 - [MS_PGM parameters](project_ms-pgm-params.md) — Current lob_params, approx_params, approx_params_fine settings
 - [v3/v4 session 2](project_ms-pgm-v3-v4-session2.md) — cost() fix, bounded_coarse_V (v4), liquidation constraint problem, proposed gap-filling direction
 - [v3/v4 session 3](project_ms-pgm-v3-v4-session3.md) — foe.x_data fix, train_value flag, bar chart cell, intervals={1,10}
+- [v3/v4/v5 session 4](session_log_v5.md) — intervals fix, error_report, v5 from v3, alpha=0.5, abs/sign fix, oscillation/NaN issues
