@@ -1,0 +1,1 @@
+- [Bar chart styling session](session_log_bar_chart_styling.md) — twin y-axes (Hausdorff left/hatched, L2 right), black tick+axis labels, applied to v7 and v8 (Three-steps)
