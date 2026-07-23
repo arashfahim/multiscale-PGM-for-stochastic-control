@@ -8,3 +8,7 @@
 - [v3/v4 session 2](project_ms-pgm-v3-v4-session2.md) — cost() fix, bounded_coarse_V (v4), liquidation constraint problem, proposed gap-filling direction
 - [v3/v4 session 3](project_ms-pgm-v3-v4-session3.md) — foe.x_data fix, train_value flag, bar chart cell, intervals={1,10}
 - [v3/v4/v5 session 4](session_log_v5.md) — intervals fix, error_report, v5 from v3, alpha=0.5, abs/sign fix, oscillation/NaN issues
+- [v7 manifold diagnostics](project_ms-pgm-v7-manifold-diagnostics.md) — 3D trajectory-vs-training scatter, L2/Hausdorff bar chart, correct data-source rule
+- [v7 timing tuning](project_ms-pgm-v7-timing-tuning.md) — num_trajectories/M_comp experiments, OU-resample bug fix, M_comp=20 divergence, oe100 anomaly
+- [v7 kappa_lower fix](project_ms-pgm-v7-kappa-lower.md) — OU vs CIR decision, max(kappa,kappa_lower) floor in step_cost, in-progress test
+- [Notebook editing method](feedback_notebook-editing-method.md) — how to edit/run .ipynb files too large for the Read tool
