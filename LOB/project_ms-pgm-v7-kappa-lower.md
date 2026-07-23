@@ -45,12 +45,18 @@ permanently *in* the weak-penalty regime, the opposite of the intent. The parame
 signaled `max` was correct despite the literal wording — worth double-checking floor/ceiling
 directionality against stated intent whenever phrasing and semantics seem to conflict.
 
-## Status: mid-test when session ended
-Was running the full notebook with the exact `M_comp=20` config that previously diverged (loss →
-2.2e22 at epoch 3,000), to check whether the `kappa_lower` fix resolves it. Check notebook state /
-rerun if picking this up — result not yet confirmed as of this memory being written.
+## Status: fix in place, but divergence is reduced not eliminated
+After the `D`-update extension, a 22-run study (see [[project_ms-pgm-v7-wallclock-logging]]) found
+**2 of 22 runs (~9%) still diverge catastrophically** — and not consistently on one side: one run had
+`oe100` break, another had `foe` break instead (cost up to 263.8 million, final `R` up to 147,615,
+vs. sane values of ~13,000-18,000 and ~120-340 respectively). So `kappa_lower=0.01` lowered the
+probability of hitting the destabilizing near-zero-κ region but is a probabilistic floor, not a
+guarantee. `num_trajectories`(oe) 100→200 also seemed to help quality in the one run tested
+(mean rel diff improved to -0.176%, sane trade sizes) but wasn't isolated as a controlled experiment
+against divergence rate specifically.
 
-**How to apply:** If the fix doesn't fully resolve `M_comp=20` divergence, the deferred `D`-update
-substitution (`D = (x[:,1] + kap_eff*psi)*exp(-rho*delta)` with `kap_eff = max(kap, kappa_lower)`) is
-the next thing to try, since it removes the same weak-coefficient pathway from the state dynamics too,
-not just the cost.
+**How to apply:** If divergence needs to be eliminated (not just reduced), consider: raising
+`kappa_lower` further (0.01 is only 2 std below the κ mean of 0.05, still leaves real tail risk per
+the Gaussian stationary-distribution estimate `P(κ≤0.01)≈2.3%` per time-point, compounded over many
+sequential steps/paths); adding gradient clipping to `foe.train()`/`oe.train()` (still not done);
+or revisiting the CIR-dynamics option now that OU+floor has a measured, nonzero residual failure rate.
