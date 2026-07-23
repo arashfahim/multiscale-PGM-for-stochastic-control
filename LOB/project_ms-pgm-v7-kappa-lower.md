@@ -1,6 +1,6 @@
 ---
 name: ms-pgm-v7-kappa-lower
-description: "MS_PGM_v7 fix in progress for the M_comp=20 divergence: kappa_lower floor in step_cost (OU kept, CIR considered and rejected for now)"
+description: "MS_PGM_v7 kappa_lower floor fix (step_cost + D update) for the M_comp=20 divergence: reduces but does not eliminate it (~1-in-11 runs still diverge, see project_ms-pgm-v7-wallclock-logging)"
 metadata:
   type: project
 ---
