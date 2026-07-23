@@ -22,8 +22,15 @@ min=self.kappa_lower)`, i.e. the cost uses $\max(\kappa_t, \underline\kappa)$ in
 `oe.kappa_lower` in `foe.__init__`. `terminal_cost` in both classes calls `step_cost`, so it inherits
 the fix automatically.
 
-**Scope deliberately limited so far**: only the cost functions were changed. The `D` update formula in
-both classes' `update()` methods still uses raw (unclamped) κ — a likely next step, not yet done.
+**Extended to the `D` update too** (done): both classes' `update()` now compute
+`kap = torch.clamp(x[:,3] or kap_raw, min=self.kappa_lower)` and use that floored value in the `D`
+formula, while the *underlying OU state* keeps evolving on raw (unclamped) κ — i.e. `foe.update()`
+uses `kap_raw = x[:,3]` for the fallback OU-noise recursion (the actual stochastic driver) but
+`kap = clamp(kap_raw, min=kappa_lower)` for the `D` formula itself. This was necessary: the cost-only
+fix (step_cost alone) did **not** stop a divergence on retest — that run's `oe.train()` Level 2 cost
+spiked to 2.1e6 and `foe` produced trade sizes down to -11,113 (portfolio is only $X_0=1000$). Once the
+`D` update was also floored, a retest of the same `M_comp=20` config that had diverged twice came back
+fully clean (smooth monotonic losses, sane trade sizes, mean rel diff -0.18% vs `oe100` in one run).
 
 **Conceptual grounding**: this isn't just a numerical patch — LQ-type stochastic control problems
 typically need the running cost's control-quadratic coefficient uniformly bounded away from 0
