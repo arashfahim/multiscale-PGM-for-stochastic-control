@@ -12,3 +12,6 @@
 - [v7 timing tuning](project_ms-pgm-v7-timing-tuning.md) — num_trajectories/M_comp experiments, OU-resample bug fix, M_comp=20 divergence, oe100 anomaly
 - [v7 kappa_lower fix](project_ms-pgm-v7-kappa-lower.md) — OU vs CIR decision, max(kappa,kappa_lower) floor in step_cost, in-progress test
 - [Notebook editing method](feedback_notebook-editing-method.md) — how to edit/run .ipynb files too large for the Read tool
+- [v7 wallclock logging](project_ms-pgm-v7-wallclock-logging.md) — JSON run-logging system, 22-run divergence study (~9% rate), Total-vs-benchmark boxplot, robust averaging (no median)
+- [v7 manifold 2D + styling](project_ms-pgm-v7-manifold-2d-styling.md) — 3D→2D conversion, B&W variant, negative-D not a bug, torch.clamp min= semantics
+- [Epistemic honesty in reports](feedback_epistemic-honesty-in-reports.md) — don't overstate causal/frequency claims in document-bound text; separate measured from hypothesized
