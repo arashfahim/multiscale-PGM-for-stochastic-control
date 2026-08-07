@@ -1,5 +1,5 @@
 {
-  "num_runs": 23,
+  "num_runs": 24,
   "runs": [
     {
       "timestamp": 1785265534.230256,
@@ -437,24 +437,43 @@
       "bf_policy_epochs": 3000,
       "bf_policy_final_cost": 38.1079364035498,
       "total_s": 13.764911890029907
+    },
+    {
+      "timestamp": 1785452956.229492,
+      "lqsc_policy_s": 6.107142925262451,
+      "lqsc_policy_epochs": 3000,
+      "lqsc_policy_final_cost": 63.11005913538238,
+      "lqsc_value_s": 0.9460480213165283,
+      "lqsc_value_epochs": 2884,
+      "lqsc_value_final_loss": 5.11721100890766,
+      "lqsc_value_retrain_s": 0.8842942714691162,
+      "lqsc_value_retrain_epochs": 2441,
+      "lqsc_value_retrain_final_loss": 0.1908541282664009,
+      "ms1_policy_s": 6.437759876251221,
+      "ms1_policy_epochs": 3000,
+      "ms1_policy_final_cost": 9.088717446019409,
+      "bf_train_s": 74.56773090362549,
+      "bf_policy_epochs": 3000,
+      "bf_policy_final_cost": 45.0055508885261,
+      "total_s": 14.375245094299316
     }
   ],
   "average": {
-    "lqsc_policy_s": 5.97221591161645,
+    "lqsc_policy_s": 5.977837870518367,
     "lqsc_policy_epochs": 3000.0,
-    "lqsc_policy_final_cost": 61.68826916349798,
-    "lqsc_value_s": 0.9396448239036228,
-    "lqsc_value_epochs": 2960.217391304348,
+    "lqsc_policy_final_cost": 61.747510412326484,
+    "lqsc_value_s": 0.9399116237958273,
+    "lqsc_value_epochs": 2957.0416666666665,
     "lqsc_value_final_loss": NaN,
-    "lqsc_value_retrain_s": 0.9757741948832637,
-    "lqsc_value_retrain_epochs": 3061.913043478261,
-    "lqsc_value_retrain_final_loss": 0.15326736467381838,
-    "ms1_policy_s": 5.879873068436332,
+    "lqsc_value_retrain_s": 0.9719625314076742,
+    "lqsc_value_retrain_epochs": 3036.0416666666665,
+    "lqsc_value_retrain_final_loss": 0.15483347982350934,
+    "ms1_policy_s": 5.903118352095286,
     "ms1_policy_epochs": 3000.0,
-    "ms1_policy_final_cost": 10.15931006492193,
-    "bf_train_s": 80.53899806478749,
+    "ms1_policy_final_cost": 10.114702039134325,
+    "bf_train_s": 80.29019526640575,
     "bf_policy_epochs": 3000.0,
-    "bf_policy_final_cost": 41.246543999038025,
-    "total_s": 13.767507998839669
+    "bf_policy_final_cost": 41.40316928610003,
+    "total_s": 13.792830377817154
   }
 }
